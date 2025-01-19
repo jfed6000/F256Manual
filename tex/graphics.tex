@@ -26,12 +26,12 @@ However, there is a key difference from text mode. In text mode, there are two c
 
 \begin{table}[ht]
     \begin{center}
-        \begin{tabular}{|c|c|l|} \hline
-            Address & R/W & Purpose \\\hline\hline
-            \verb+0xD000+ & R/W & Graphics CLUT 0 \\ \hline
-            \verb+0xD400+ & R/W & Graphics CLUT 1 \\ \hline
-            \verb+0xD800+ & R/W & Graphics CLUT 2 \\ \hline
-            \verb+0xDC00+ & R/W & Graphics CLUT 3 \\ \hline
+        \begin{tabular}{|c|c|c|c|l|} \hline
+            Block & Offset & Address & R/W & Purpose \\\hline\hline
+            \verb+$C1+ & \verb+$1000+ & \verb+0x18_3000+ & R/W & Graphics CLUT 0 \\ \hline
+            \verb+$C1+ & \verb+$1400+ & \verb+0x18_3400+ & R/W & Graphics CLUT 1 \\ \hline
+            \verb+$C1+ & \verb+$1800+ & \verb+0x18_3800+ & R/W & Graphics CLUT 2 \\ \hline
+            \verb+$C1+ & \verb+$1C00+ & \verb+0x18_3C00+ & R/W & Graphics CLUT 3 \\ \hline
         \end{tabular}
     \end{center}
     \caption{Graphics Color Lookup Tables}
@@ -119,8 +119,8 @@ Bitmaps and tile maps are assigned to their layers using the layer control regis
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline\hline
-            \verb+0xD002+ & R/W & --- & \multicolumn{3}{|c|}{LAYER1} & --- & \multicolumn{3}{|c|}{LAYER0} \\\hline
-            \verb+0xD003+ & R/W & \multicolumn{5}{|c|}{---} & \multicolumn{3}{|c|}{LAYER2} \\\hline
+            \verb+0xFFC2+ & R/W & --- & \multicolumn{3}{|c|}{LAYER1} & --- & \multicolumn{3}{|c|}{LAYER0} \\\hline
+            \verb+0xFFC3+ & R/W & \multicolumn{5}{|c|}{---} & \multicolumn{3}{|c|}{LAYER2} \\\hline
         \end{tabular}
     \end{center}
     \caption{Bitmap and Tile Map Layer Registers}

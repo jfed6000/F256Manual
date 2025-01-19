@@ -16,31 +16,33 @@ The \jr\ provides two 24-bit timers. The two timers work on different clocks: ti
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & Name & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-			\verb+D650+ & W & T0\_CTR & --- & \multicolumn{3}{|c|}{---} & UP & LD & CLR & EN \\ \hline
-			\verb+D650+ & R & T0\_STAT & \multicolumn{7}{|c|}{---} & EQ \\ \hline
+			\verb+0xFE30+ & W & T0\_CTR & --- & \multicolumn{3}{|c|}{---} & UP & LD & CLR & EN \\ \hline
+			\verb+0xFE30+ & R & T0\_STAT & \multicolumn{7}{|c|}{---} & EQ \\ \hline
 
-			\verb+D651+ & R/W & \multirow{3}{*}{T0\_VAL} & V7 & V6 & V5 & V4 & V3 & V2 & V1 & V0 \\ \cline{1-2}\cline{4-11}
-			\verb+D652+ & R/W &  & V15 & V14 & V13 & V12 & V11 & V10 & V9 & V8 \\ \cline{1-2}\cline{4-11}
-			\verb+D653+ & R/W &  & V23 & V22 & V21 & V20 & V19 & V18 & V7 & V6 \\ \hline
+			\verb+0xFE33+ & R/W & \multirow{3}{*}{T0\_VAL} & V23 & V22 & V21 & V20 & V19 & V18 & V17 & V16 \\ \cline{1-2}\cline{4-11}
+			\verb+0xFE32+ & R/W &  & V15 & V14 & V13 & V12 & V11 & V10 & V9 & V8 \\ \cline{1-2}\cline{4-11}
+			\verb+0xFE31+ & R/W &  & V7 & V6 & V5 & V4 & V3 & V2 & V1 & V0 \\ \hline
 
-			\verb+D654+ & R/W & T0\_CMP\_CTR & \multicolumn{6}{|c|}{---} & RELD & RECLR \\ \hline
+			\verb+0xFE34+ & R/W & T0\_CMP\_CTR & \multicolumn{6}{|c|}{---} & RELD & RECLR \\ \hline
 
-			\verb+D655+ & R/W & \multirow{3}{*}{T0\_CMP} & C7 & C6 & C5 & C4 & C3 & C2 & C1 & C0 \\ \cline{1-2}\cline{4-11}
-			\verb+D656+ & R/W &  & C15 & C14 & C13 & C12 & C11 & C10 & C9 & C8 \\ \cline{1-2}\cline{4-11}
-			\verb+D657+ & R/W &  & C23 & C22 & C21 & C20 & C19 & C18 & C17 & C16 \\ \hline\hline
+			\verb+0xFE37+ & R/W & \multirow{3}{*}{T0\_CMP} & C23 & C22 & C21 & C20 & C19 & C18 & C17 & C16 \\ \cline{1-2}\cline{4-11}
+			\verb+0xFE36+ & R/W &  & C15 & C14 & C13 & C12 & C11 & C10 & C9 & C8 \\ \cline{1-2}\cline{4-11}
+			\verb+0xFE35+ & R/W &  & C7 & C6 & C5 & C4 & C3 & C2 & C1 & C0 \\ \hline\hline
 
-			\verb+D658+ & W & T1\_CTR & INT\_EN & \multicolumn{3}{|c|}{---} & UP & LD & CLR & EN \\ \hline
-			\verb+D658+ & R & T1\_STAT & \multicolumn{7}{|c|}{---} & EQ \\ \hline
+			\verb+0xFE38+ & W & T1\_CTR & INT\_EN & \multicolumn{3}{|c|}{---} & UP & LD & CLR & EN \\ \hline
+			\verb+0xFE38+ & R & T1\_STAT & \multicolumn{7}{|c|}{---} & EQ \\ \hline
 
-			\verb+D659+ & R/W & \multirow{3}{*}{T1\_VAL} & V7 & V6 & V5 & V4 & V3 & V2 & V1 & V0 \\ \cline{1-2}\cline{4-11}
-			\verb+D65A+ & R/W &  & V15 & V14 & V13 & V12 & V11 & V10 & V9 & V8 \\ \cline{1-2}\cline{4-11}
-			\verb+D65B+ & R/W &  & V23 & V22 & V21 & V20 & V19 & V18 & V7 & V6 \\ \hline
+			\verb+0xFE3B+ & R/W & \multirow{3}{*}{T1\_VAL} & V23 & V22 & V21 & V20 & V19 & V18 & V17 & V16 \\ \cline{1-2}\cline{4-11}\hline
+			\verb+0xFE3A+ & R/W &  & V15 & V14 & V13 & V12 & V11 & V10 & V9 & V8 \\ \cline{1-2}\cline{4-11}
+			\verb+0xFE39+ & R/W &  & V7 & V6 & V5 & V4 & V3 & V2 & V1 & V0 \\ \hline
 
-			\verb+D65C+ & R/W & T1\_CMP\_CTR & \multicolumn{6}{|c|}{---} & RELD & RECLR \\ \hline
 
-			\verb+D65D+ & R/W & \multirow{3}{*}{T1\_CMP} & C7 & C6 & C5 & C4 & C3 & C2 & C1 & C0 \\ \cline{1-2}\cline{4-11}
-			\verb+D65E+ & R/W &  & C15 & C14 & C13 & C12 & C11 & C10 & C9 & C8 \\ \cline{1-2}\cline{4-11}
-			\verb+D65F+ & R/W &  & C23 & C22 & C21 & C20 & C19 & C18 & C17 & C16 \\ \hline
+
+			\verb+0xFE3C+ & R/W & T1\_CMP\_CTR & \multicolumn{6}{|c|}{---} & RELD & RECLR \\ \hline
+
+			\verb+0xFE3F+ & R/W & \multirow{3}{*}{T1\_CMP} & C23 & C22 & C21 & C20 & C19 & C18 & C17 & C16 \\ \cline{1-2}\cline{4-11}
+			\verb+0xFE3E+ & R/W &  & C15 & C14 & C13 & C12 & C11 & C10 & C9 & C8 \\ \cline{1-2}\cline{4-11}
+			\verb+0xFE3D+ & R/W &  & C7 & C6 & C5 & C4 & C3 & C2 & C1 & C0 \\ \hline
         \end{tabular}
     \end{center}
     \caption{Timer Registers}
@@ -79,22 +81,22 @@ The RTC is relatively straightforward to use, but one potentially tricky thing t
 	\begin{center}
 		\begin{tabular}{| c | c | c || c | c | c | c | c | c | c | c |} \hline
 			Address & R/W & Name & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline\hline
-			\verb+0xD690+ & R/W & Seconds & 0 & \multicolumn{3}{|c|}{second 10s digit} & \multicolumn{4}{|c|}{second 1s digit} \\ \hline
-            \verb+0xD691+ & R/W & Seconds Alarm & 0 & \multicolumn{3}{|c|}{second 10s digit} & \multicolumn{4}{|c|}{second 1s digit} \\ \hline
-            \verb+0xD692+ & R/W & Minutes & 0 & \multicolumn{3}{|c|}{minute 10s digit} & \multicolumn{4}{|c|}{minute 1s digit} \\ \hline
-            \verb+0xD693+ & R/W & Minutes Alarm & 0 & \multicolumn{3}{|c|}{minute 10s digit} & \multicolumn{4}{|c|}{minute 1s digit} \\ \hline
-            \verb+0xD694+ & R/W & Hours & AM/PM & 0 & \multicolumn{2}{|c|}{hour 10s digit} & \multicolumn{4}{|c|}{hour 1s digit} \\ \hline
-            \verb+0xD695+ & R/W & Hours Alarm & AM/PM & 0 & \multicolumn{2}{|c|}{hour 10s digit} & \multicolumn{4}{|c|}{hour 1s digit} \\ \hline
-            \verb+0xD696+ & R/W & Days & 0 & 0 & \multicolumn{2}{|c|}{day 10s digit} & \multicolumn{4}{|c|}{day 1s digit} \\ \hline
-            \verb+0xD697+ & R/W & Days Alarm & 0 & 0 & \multicolumn{2}{|c|}{day 10s digit} & \multicolumn{4}{|c|}{day 1s digit} \\ \hline
-            \verb+0xD698+ & R/W & Day of Week & 0 & 0 & 0 & 0 & 0 & \multicolumn{3}{|c|}{day of week digit} \\ \hline
-            \verb+0xD699+ & R/W & Month & 0 & 0 & 0 & month 10s digit & \multicolumn{4}{|c|}{month 1s digit} \\ \hline
-            \verb+0xD69A+ & R/W & Year & \multicolumn{4}{|c|}{year 10s digit} & \multicolumn{4}{|c|}{year 1s digit}  \\ \hline
-            \verb+0xD69B+ & R/W & Rates & 0 & \multicolumn{3}{|c|}{WD} & \multicolumn{4}{|c|}{RS} \\ \hline
-            \verb+0xD69C+ & R/W & Enables & 0 & 0 & 0 & 0 & AIE & PIE & PWRIE & ABE \\ \hline
-            \verb+0xD69D+ & R/W & Flags & 0 & 0 & 0 & 0 & AF & PF & PWRF & BVF \\ \hline
-            \verb+0xD69E+ & R/W & Control & 0 & 0 & 0 & 0 & UTI & STOP & 12/24 & DSE \\ \hline
-            \verb+0xD69F+ & R/W & Century & \multicolumn{4}{|c|}{century 10s digit} & \multicolumn{4}{|c|}{century 1s digit}  \\ \hline
+			\verb+0xFE40+ & R/W & Seconds & 0 & \multicolumn{3}{|c|}{second 10s digit} & \multicolumn{4}{|c|}{second 1s digit} \\ \hline
+            \verb+0xFE41+ & R/W & Seconds Alarm & 0 & \multicolumn{3}{|c|}{second 10s digit} & \multicolumn{4}{|c|}{second 1s digit} \\ \hline
+            \verb+0xFE42+ & R/W & Minutes & 0 & \multicolumn{3}{|c|}{minute 10s digit} & \multicolumn{4}{|c|}{minute 1s digit} \\ \hline
+            \verb+0xFE43+ & R/W & Minutes Alarm & 0 & \multicolumn{3}{|c|}{minute 10s digit} & \multicolumn{4}{|c|}{minute 1s digit} \\ \hline
+            \verb+0xFE44+ & R/W & Hours & AM/PM & 0 & \multicolumn{2}{|c|}{hour 10s digit} & \multicolumn{4}{|c|}{hour 1s digit} \\ \hline
+            \verb+0xFE45+ & R/W & Hours Alarm & AM/PM & 0 & \multicolumn{2}{|c|}{hour 10s digit} & \multicolumn{4}{|c|}{hour 1s digit} \\ \hline
+            \verb+0xFE46+ & R/W & Days & 0 & 0 & \multicolumn{2}{|c|}{day 10s digit} & \multicolumn{4}{|c|}{day 1s digit} \\ \hline
+            \verb+0xFE47+ & R/W & Days Alarm & 0 & 0 & \multicolumn{2}{|c|}{day 10s digit} & \multicolumn{4}{|c|}{day 1s digit} \\ \hline
+            \verb+0xFE48+ & R/W & Day of Week & 0 & 0 & 0 & 0 & 0 & \multicolumn{3}{|c|}{day of week digit} \\ \hline
+            \verb+0xFE49+ & R/W & Month & 0 & 0 & 0 & month 10s digit & \multicolumn{4}{|c|}{month 1s digit} \\ \hline
+            \verb+0xFE4A+ & R/W & Year & \multicolumn{4}{|c|}{year 10s digit} & \multicolumn{4}{|c|}{year 1s digit}  \\ \hline
+            \verb+0xFE4B+ & R/W & Rates & 0 & \multicolumn{3}{|c|}{WD} & \multicolumn{4}{|c|}{RS} \\ \hline
+            \verb+0xFE4C+ & R/W & Enables & 0 & 0 & 0 & 0 & AIE & PIE & PWRIE & ABE \\ \hline
+            \verb+0xFE4D+ & R/W & Flags & 0 & 0 & 0 & 0 & AF & PF & PWRF & BVF \\ \hline
+            \verb+0xFE4E+ & R/W & Control & 0 & 0 & 0 & 0 & UTI & STOP & 12/24 & DSE \\ \hline
+            \verb+0xFE4F+ & R/W & Century & \multicolumn{4}{|c|}{century 10s digit} & \multicolumn{4}{|c|}{century 1s digit}  \\ \hline
 		\end{tabular}
 	\end{center}
 	\caption{Real Time Clock Registers}

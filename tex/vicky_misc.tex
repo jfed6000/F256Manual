@@ -8,7 +8,7 @@
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xD670+ & R & GAMMA & USER2 & USER1 & USER0 & \multicolumn{4}{|c|}{BOOT} \\ \hline
+            \verb+0xFF90+ & R & GAMMA & USER2 & USER1 & USER0 & \multicolumn{4}{|c|}{BOOT} \\ \hline
         \end{tabular}
     \end{center}
     \caption{DIP Switch Register}
@@ -34,12 +34,12 @@ When using graphics modes, the border simply hides the graphics elements underne
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & Name & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xD004+ & R/W & BRDR\_CTRL & --- & \multicolumn{3}{|c|}{SCROLL\_X} & \multicolumn{3}{|c|}{---} & ENABLE \\ \hline
-            \verb+0xD005+ & R/W & BRDR\_BLUE & \multicolumn{8}{|c|}{Blue component of border color} \\ \hline
-            \verb+0xD006+ & R/W & BRDR\_GREEN & \multicolumn{8}{|c|}{Green component of border color} \\ \hline
-            \verb+0xD007+ & R/W & BRDR\_RED & \multicolumn{8}{|c|}{Red component of border color} \\ \hline
-            \verb+0xD008+ & R/W & BRDR\_WIDTH & \multicolumn{3}{|c|}{---} & \multicolumn{5}{|c|}{SIZE\_X} \\ \hline
-            \verb+0xD009+ & R/W & BRDR\_HEIGHT & \multicolumn{3}{|c|}{---} & \multicolumn{5}{|c|}{SIZE\_Y} \\ \hline
+            \verb+0xFFC4+ & R/W & BRDR\_CTRL & --- & \multicolumn{3}{|c|}{SCROLL\_X} & \multicolumn{3}{|c|}{---} & ENABLE \\ \hline
+            \verb+0xFFC5+ & R/W & BRDR\_BLUE & \multicolumn{8}{|c|}{Blue component of border color} \\ \hline
+            \verb+0xFFC6+ & R/W & BRDR\_GREEN & \multicolumn{8}{|c|}{Green component of border color} \\ \hline
+            \verb+0xFFC7+ & R/W & BRDR\_RED & \multicolumn{8}{|c|}{Red component of border color} \\ \hline
+            \verb+0xFFC8+ & R/W & BRDR\_WIDTH & \multicolumn{3}{|c|}{---} & \multicolumn{5}{|c|}{SIZE\_X} \\ \hline
+            \verb+0xFFC9+ & R/W & BRDR\_HEIGHT & \multicolumn{3}{|c|}{---} & \multicolumn{5}{|c|}{SIZE\_Y} \\ \hline
         \end{tabular}
     \end{center}
     \caption{Border Registers}
@@ -70,9 +70,9 @@ In text mode, the background color is determined by the color matrix and the tex
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & Name & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xD00D+ & R/W & BGND\_BLUE & \multicolumn{8}{|c|}{Blue component of background color} \\ \hline
-            \verb+0xD00E+ & R/W & BGND\_GREEN & \multicolumn{8}{|c|}{Green component of background color} \\ \hline
-            \verb+0xD00F+ & R/W & BGND\_RED & \multicolumn{8}{|c|}{Red component of background color} \\ \hline
+            \verb+0xFFCD+ & R/W & BGND\_BLUE & \multicolumn{8}{|c|}{Blue component of background color} \\ \hline
+            \verb+0xFFCE+ & R/W & BGND\_GREEN & \multicolumn{8}{|c|}{Green component of background color} \\ \hline
+            \verb+0xFFCF+ & R/W & BGND\_RED & \multicolumn{8}{|c|}{Red component of background color} \\ \hline
         \end{tabular}
     \end{center}
     \caption{Background Color Registers}
@@ -87,15 +87,15 @@ TinyVicky can trigger a SOL interrupt (see table:~\ref{tab:int_group_0}) when th
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & Name & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xD018+ & W & LINT\_CTRL & \multicolumn{7}{|c|}{---} & ENABLE \\ \hline
-            \verb+0xD019+ & W & \multirow{2}{*}{LINT\_L} & L7 & L6 & L5 & L4 & L3 & L2 & L1 & L0 \\ \cline{1-2}\cline{4-11}
-            \verb+0xD01A+ & W &  & \multicolumn{4}{|c|}{---} & L11 & L10 & L9 & L8 \\ \hline
-            \verb+0xD01B+ & W & --- & \multicolumn{8}{|c|}{Reserved} \\ \hline
+            \verb+0xFFD8+ & W & LINT\_CTRL & \multicolumn{7}{|c|}{---} & ENABLE \\ \hline
+            \verb+0xFFDA+ & W & \multirow{2}{*}{LINT\_L} & \multicolumn{4}{|c|}{---} & L11 & L10 & L9 & L8 \\ \cline{1-2}\cline{4-11}
+            \verb+0xFFD9+ & W &  & L7 & L6 & L5 & L4 & L3 & L2 & L1 & L0 \\ \hline
+            \verb+0xFFDB+ & W & --- & \multicolumn{8}{|c|}{Reserved} \\ \hline
 
-            \verb+0xD018+ & R & \multirow{2}{*}{RAST\_COL} & X7 & X6 & X5 & X4 & X3 & X2 & X1 & X0 \\  \cline{1-2}\cline{4-11}
-            \verb+0xD019+ & R & & \multicolumn{4}{|c|}{---} & X11 & X10 & X9 & X8 \\ \hline
-            \verb+0xD01A+ & R & \multirow{2}{*}{RAST\_ROW} & Y7 & Y6 & Y5 & Y4 & Y3 & Y2 & Y1 & Y0 \\  \cline{1-2}\cline{4-11}
-            \verb+0xD01B+ & R & & \multicolumn{4}{|c|}{---} & Y11 & Y10 & Y9 & Y8 \\ \hline
+            \verb+0xFFD9+ & R & \multirow{2}{*}{RAST\_COL} & \multicolumn{4}{|c|}{---} & X11 & X10 & X9 & X8 \\ \cline{1-2}\cline{4-11}
+            \verb+0xFFD8+ & R & & X7 & X6 & X5 & X4 & X3 & X2 & X1 & X0 \\  \hline
+            \verb+0xFFDB+ & R & \multirow{2}{*}{RAST\_ROW} & \multicolumn{4}{|c|}{---} & Y11 & Y10 & Y9 & Y8 \\ \cline{1-2}\cline{4-11}
+            \verb+0xFFDA+ & R & & Y7 & Y6 & Y5 & Y4 & Y3 & Y2 & Y1 & Y0 \\  \hline
         \end{tabular}
     \end{center}
     \caption{Line Interrupt and Beam Position Registers}

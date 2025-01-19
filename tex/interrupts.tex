@@ -18,20 +18,20 @@ Each interrupt that the interrupt controller manages belongs to one of three sep
 	\begin{center}
 		\begin{tabular}{|c|c|c|} \hline
             Group & Address & Name \\ \hline\hline
-            \multirow{4}{*}{0} & 0xD660 & INT\_PENDING\_0 \\ \cline{2-3}
-                               & 0xD664 & INT\_POLARITY\_0 \\ \cline{2-3}
-                               & 0xD668 & INT\_EDGE\_0 \\ \cline{2-3}
-                               & 0xD66C & INT\_MASK\_0 \\ \hline\hline
+            \multirow{4}{*}{0} & 0xFE20 & INT\_PENDING\_0 \\ \cline{2-3}
+                               & 0xFE24 & INT\_POLARITY\_0 \\ \cline{2-3}
+                               & 0xFE28 & INT\_EDGE\_0 \\ \cline{2-3}
+                               & 0xFE2C & INT\_MASK\_0 \\ \hline\hline
 
-            \multirow{4}{*}{1} & 0xD661 & INT\_PENDING\_1 \\ \cline{2-3}
-                               & 0xD665 & INT\_POLARITY\_1 \\ \cline{2-3}
-                               & 0xD669 & INT\_EDGE\_1 \\ \cline{2-3}
-                               & 0xD66D & INT\_MASK\_1 \\ \hline\hline
+            \multirow{4}{*}{1} & 0xFE21 & INT\_PENDING\_1 \\ \cline{2-3}
+                               & 0xFE25 & INT\_POLARITY\_1 \\ \cline{2-3}
+                               & 0xFE29 & INT\_EDGE\_1 \\ \cline{2-3}
+                               & 0xFE2D & INT\_MASK\_1 \\ \hline\hline
 
-            \multirow{4}{*}{2} & 0xD662 & INT\_PENDING\_2 \\ \cline{2-3}
-                               & 0xD666 & INT\_POLARITY\_2 \\ \cline{2-3}
-                               & 0xD66A & INT\_EDGE\_2 \\ \cline{2-3}
-                               & 0xD66E & INT\_MASK\_2 \\ \hline
+            \multirow{4}{*}{2} & 0xFE22 & INT\_PENDING\_2 \\ \cline{2-3}
+                               & 0xFE26 & INT\_POLARITY\_2 \\ \cline{2-3}
+                               & 0xFE2A & INT\_EDGE\_2 \\ \cline{2-3}
+                               & 0xFE2E & INT\_MASK\_2 \\ \hline
         \end{tabular}
     \end{center}
 	\caption{Interrupt Registers}

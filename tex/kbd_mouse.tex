@@ -6,11 +6,11 @@ The \jr\ provides a single PS/2 port for use with either a keyboard or a mouse. 
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & Name & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xD640+ & R/W & PS2\_CTRL & \multicolumn{2}{|c|}{---} & MCLR & KCLR & M\_WR & --- & K\_WR & --- \\\hline
-            \verb+0xD641+ & R/W & PS2\_OUT & \multicolumn{8}{|l|}{Data to send to keyboard} \\ \hline
-            \verb+0xD642+ & R & KBD\_IN & \multicolumn{8}{|l|}{Data from the keyboard input FIFO} \\ \hline
-            \verb+0xD643+ & R & MS\_IN & \multicolumn{8}{|l|}{Data from the mouse input FIFO} \\ \hline
-            \verb+0xD644+ & R & PS2\_STAT & K\_AK & K\_NK & M\_AK & M\_NK & \multicolumn{2}{|c|}{---} & MEMP & KEMP \\ \hline
+            \verb+0xFE50+ & R/W & PS2\_CTRL & \multicolumn{2}{|c|}{---} & MCLR & KCLR & M\_WR & --- & K\_WR & --- \\\hline
+            \verb+0xFE51+ & R/W & PS2\_OUT & \multicolumn{8}{|l|}{Data to send to keyboard} \\ \hline
+            \verb+0xFE52+ & R & KBD\_IN & \multicolumn{8}{|l|}{Data from the keyboard input FIFO} \\ \hline
+            \verb+0xFE53+ & R & MS\_IN & \multicolumn{8}{|l|}{Data from the mouse input FIFO} \\ \hline
+            \verb+0xFE54+ & R & PS2\_STAT & K\_AK & K\_NK & M\_AK & M\_NK & \multicolumn{2}{|c|}{---} & MEMP & KEMP \\ \hline
         \end{tabular}
     \end{center}
     \caption{PS/2 Port Registers}
@@ -36,7 +36,7 @@ The \jr\ provides special support for a PS/2 mouse, including support for a hard
 
 \subsection*{Mouse Pointer}
 
-The \jr\ provides for a grayscale hardware mouse pointer. The pointer is a $16 \times 16$ grayscale image of 256 levels. Each pixel of the image is a single byte. The bitmap data is stored in the address range 0xCC00--0xCFFF.
+The \jr\ provides for a grayscale hardware mouse pointer. The pointer is a $16 \times 16$ grayscale image of 256 levels. Each pixel of the image is a single byte. The bitmap data is stored in the address range 0x18\_0C00--0x18\_0FFF (Block \$C0 Offset \$0C00).
 
 The position of the mouse pointer is controlled in one of two ways. In the default approach (MODE = 0), the system software will monitor mouse movements, determine the mouse position programmatically, and set the TinyVicky mouse position registers directly. In the legacy approach (MODE = 1), the system software will receive the three byte PS/2 mouse data packet and set the TinyVicky mouse PS2\_BYTE registers. In this legacy mode, TinyVicky will interpret the mouse packets and track the mouse position for the system. This approach is less work for the system software, but is less flexible.
 
@@ -44,14 +44,14 @@ The position of the mouse pointer is controlled in one of two ways. In the defau
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xD6E0+ & W & \multicolumn{6}{|c|}{---} & MODE & EN \\\hline
-            \verb+0xD6E2+ & RW & X7 & X6 & X5 & X4 & X3 & X2 & X1 & X0 \\\hline
-            \verb+0xD6E3+ & RW & X15 & X14 & X13 & X12 & X11 & X10 & X9 & X8 \\\hline
-            \verb+0xD6E4+ & RW & Y7 & Y6 & Y5 & Y4 & Y3 & Y2 & Y1 & Y0 \\\hline
-            \verb+0xD6E5+ & RW & Y15 & Y14 & Y13 & Y12 & Y11 & Y10 & Y9 & Y8 \\\hline
-            \verb+0xD6E6+ & W & \multicolumn{8}{|c|}{PS2\_BYTE\_0} \\\hline
-            \verb+0xD6E7+ & W & \multicolumn{8}{|c|}{PS2\_BYTE\_1} \\\hline
-            \verb+0xD6E8+ & W & \multicolumn{8}{|c|}{PS2\_BYTE\_2} \\\hline
+            \verb+0xFEA0+ & W & \multicolumn{6}{|c|}{---} & MODE & EN \\\hline
+            \verb+0xFEA2+ & RW & X15 & X14 & X13 & X12 & X11 & X10 & X9 & X8 \\\hline
+            \verb+0xFEA3+ & RW & X7 & X6 & X5 & X4 & X3 & X2 & X1 & X0 \\\hline
+            \verb+0xFEA4+ & RW & Y15 & Y14 & Y13 & Y12 & Y11 & Y10 & Y9 & Y8 \\\hline
+            \verb+0xFEA5+ & RW & Y7 & Y6 & Y5 & Y4 & Y3 & Y2 & Y1 & Y0 \\\hline
+            \verb+0xFEA6+ & W & \multicolumn{8}{|c|}{PS2\_BYTE\_0} \\\hline
+            \verb+0xFEA7+ & W & \multicolumn{8}{|c|}{PS2\_BYTE\_1} \\\hline
+            \verb+0xFEA8+ & W & \multicolumn{8}{|c|}{PS2\_BYTE\_2} \\\hline
         \end{tabular}
     \end{center}
     \caption{Mouse Pointer Registers}
@@ -75,7 +75,7 @@ The position of the mouse pointer is controlled in one of two ways. In the defau
     this section pertains to the \fk\ only.
 \end{note}
 
-The \fk\ includes a second WDC65C22 VIA chip at 0xDB00 on I/O page 0 (see page \pageref{chap_via} for details on the VIAs) which manages the keyboard input from the \fk's built-in keyboard. The F256K's keyboard is a matrix keyboard. Except for the RESTORE key, all keys on the keyboard are arranged in a matrix with the columns assigned to VIA1's PB pins and the rows assigned to VIA1's PA pins. VIA0's PB7 pin is also used for a column. See figure~\ref{fig:f256k_matrix}.
+The \fk\ includes a second WDC65C22 VIA chip at 0xFFB0 (see page \pageref{chap_via} for details on the VIAs) which manages the keyboard input from the \fk's built-in keyboard. The F256K's keyboard is a matrix keyboard. Except for the RESTORE key, all keys on the keyboard are arranged in a matrix with the columns assigned to VIA1's PB pins and the rows assigned to VIA1's PA pins. VIA0's PB7 pin is also used for a column. See figure~\ref{fig:f256k_matrix}.
 
 \begin{figure}[ht]
     \begin{center}

@@ -13,7 +13,7 @@ The bitmap, sprite, and tile engines are considered graphics modes. TinyVicky wi
 
 \section*{Text Matrix}
 
-The memory for the characters to display on the screen is the text matrix, which is stored in I/O page 2. When this I/O page is swapped into the CPU address space, it appears at 0xC000. Each byte of memory corresponds to a single character on the screen in left to right, top to bottom order. The byte at 0xC000 is the upper left corner of the screen, the byte at 0xC001 is the next character to the right, and so on. The number of bytes per line is set by the base resolution of the screen, but is generally 80. When a border is displayed, while that limits the number of characters displayed, the layout in memory remains the same.
+The memory for the characters to display on the screen is the text matrix, which is stored in I/O page 2. When this I/O page is swapped into the CPU address space, it appears at 0x18\_4000. Each byte of memory corresponds to a single character on the screen in left to right, top to bottom order. The byte at 0x18\_4000 (Block \$C2 Offset \$0000) is the upper left corner of the screen, the byte at 0x18\_4001 is the next character to the right, and so on. The number of bytes per line is set by the base resolution of the screen, but is generally 80. When a border is displayed, while that limits the number of characters displayed, the layout in memory remains the same.
 
 The text screen has two core resolutions, tied to the refresh rate of the screen: 80 by 60 at 60 Hz, and 80 by 50 at 70 Hz. Beyond that, the character display may be made double width or double height, or both. This gives the following possible character displays: $80 \times 60$, $40 \times 60$, $80 \times 30$, $40 \times 30$, $80 \times 50$, $40 \times 50$, $80 \times 25$, and $40 \times 25$.
 
@@ -38,7 +38,7 @@ Note: this example does not set the font or the color, so depending on how your 
 
 Characters in TinyVicky text mode have two colors: the foreground and the background. The foreground and background colors are picked for each character out of two different palettes of 16 colors each. The colors in the palettes are picked from the full range of colors \jr\ can produce, which is more than 16 million colors. This is all managed through two color lookup tables (LUTs) provided by TinyVicky: a text foreground color LUT, and a text background color LUT.
 
-The text LUTs are stored in I/O page 0. The foreground LUT starts at 0xD800, and the background LUT starts at 0xD840.
+The text LUTs are stored in I/O page 0. The foreground LUT starts at 0xFF00, and the background LUT starts at 0xFF40.
 
 Each LUT is a list of 16 entries. Each entry is a set of four bytes: blue, green, red, and alpha (in that order). Each byte indicates how much of that primary color is present as a component of the actual color. The values range from 0 (none) to 255 (as much as possible). Currently, the alpha channel is not used and is there for future expansion.
 
@@ -46,22 +46,22 @@ Each LUT is a list of 16 entries. Each entry is a set of four bytes: blue, green
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline
             Index & R/W & Foreground & Background & 0 & 1 & 2 & 3 \\ \hline\hline
-            0 & W & \verb+0xD800+ & \verb+0xD840+ & BLUE\_0 & GREEN\_0 & RED\_0 & X \\ \hline
-            1 & W & \verb+0xD804+ & \verb+0xD844+ & BLUE\_1 & GREEN\_1 & RED\_1 & X \\ \hline
-            2 & W & \verb+0xD808+ & \verb+0xD848+ & BLUE\_2 & GREEN\_2 & RED\_2 & X \\ \hline
-            3 & W & \verb+0xD80C+ & \verb+0xD84C+ & BLUE\_3 & GREEN\_3 & RED\_3 & X \\ \hline
-            4 & W & \verb+0xD810+ & \verb+0xD850+ & BLUE\_4 & GREEN\_4 & RED\_4 & X \\ \hline
-            5 & W & \verb+0xD814+ & \verb+0xD854+ & BLUE\_5 & GREEN\_5 & RED\_5 & X \\ \hline
-            6 & W & \verb+0xD818+ & \verb+0xD858+ & BLUE\_6 & GREEN\_6 & RED\_6 & X \\ \hline
-            7 & W & \verb+0xD81C+ & \verb+0xD85C+ & BLUE\_7 & GREEN\_7 & RED\_7 & X \\ \hline
-            8 & W & \verb+0xD820+ & \verb+0xD860+ & BLUE\_8 & GREEN\_8 & RED\_8 & X \\ \hline
-            9 & W & \verb+0xD824+ & \verb+0xD864+ & BLUE\_9 & GREEN\_9 & RED\_9 & X \\ \hline
-            10 & W & \verb+0xD828+ & \verb+0xD868+ & BLUE\_10 & GREEN\_10 & RED\_10 & X \\ \hline
-            11 & W & \verb+0xD82C+ & \verb+0xD86C+ & BLUE\_11 & GREEN\_11 & RED\_11 & X \\ \hline
-            12 & W & \verb+0xD830+ & \verb+0xD870+ & BLUE\_12 & GREEN\_12 & RED\_12 & X \\ \hline
-            13 & W & \verb+0xD834+ & \verb+0xD874+ & BLUE\_13 & GREEN\_13 & RED\_13 & X \\ \hline
-            14 & W & \verb+0xD838+ & \verb+0xD878+ & BLUE\_14 & GREEN\_14 & RED\_14 & X \\ \hline
-            15 & W & \verb+0xD83C+ & \verb+0xD87C+ & BLUE\_15 & GREEN\_15 & RED\_15 & X \\ \hline
+            0 & W & \verb+0xFF00+ & \verb+0xFF40+ & BLUE\_0 & GREEN\_0 & RED\_0 & X \\ \hline
+            1 & W & \verb+0xFF04+ & \verb+0xFF44+ & BLUE\_1 & GREEN\_1 & RED\_1 & X \\ \hline
+            2 & W & \verb+0xFF08+ & \verb+0xFF48+ & BLUE\_2 & GREEN\_2 & RED\_2 & X \\ \hline
+            3 & W & \verb+0xFF0C+ & \verb+0xFF4C+ & BLUE\_3 & GREEN\_3 & RED\_3 & X \\ \hline
+            4 & W & \verb+0xFF10+ & \verb+0xFF50+ & BLUE\_4 & GREEN\_4 & RED\_4 & X \\ \hline
+            5 & W & \verb+0xFF14+ & \verb+0xFF54+ & BLUE\_5 & GREEN\_5 & RED\_5 & X \\ \hline
+            6 & W & \verb+0xFF18+ & \verb+0xFF58+ & BLUE\_6 & GREEN\_6 & RED\_6 & X \\ \hline
+            7 & W & \verb+0xFF1C+ & \verb+0xFF5C+ & BLUE\_7 & GREEN\_7 & RED\_7 & X \\ \hline
+            8 & W & \verb+0xFF20+ & \verb+0xFF60+ & BLUE\_8 & GREEN\_8 & RED\_8 & X \\ \hline
+            9 & W & \verb+0xFF24+ & \verb+0xFF64+ & BLUE\_9 & GREEN\_9 & RED\_9 & X \\ \hline
+            10 & W & \verb+0xFF28+ & \verb+0xFF68+ & BLUE\_10 & GREEN\_10 & RED\_10 & X \\ \hline
+            11 & W & \verb+0xFF2C+ & \verb+0xFF6C+ & BLUE\_11 & GREEN\_11 & RED\_11 & X \\ \hline
+            12 & W & \verb+0xFF30+ & \verb+0xFF70+ & BLUE\_12 & GREEN\_12 & RED\_12 & X \\ \hline
+            13 & W & \verb+0xFF34+ & \verb+0xFF74+ & BLUE\_13 & GREEN\_13 & RED\_13 & X \\ \hline
+            14 & W & \verb+0xFF38+ & \verb+0xFF78+ & BLUE\_14 & GREEN\_14 & RED\_14 & X \\ \hline
+            15 & W & \verb+0xFF3C+ & \verb+0xFF7C+ & BLUE\_15 & GREEN\_15 & RED\_15 & X \\ \hline
         \end{tabular}
     \end{center}
     \caption{Text Color Lookup Tables}
@@ -70,11 +70,11 @@ Each LUT is a list of 16 entries. Each entry is a set of four bytes: blue, green
 
 \section*{Color Matrix}
 
-The way that text color is selected for each character is through the color matrix. This section of memory is in I/O page 3 and starts at 0xC000 when page 3 is swapped into the CPU's address space. The layout is precisely the same as the text matrix ({\it e.g.} the character at 0xC123 in the text matrix has its color information at 0xC123 in the color matrix).
+The way that text color is selected for each character is through the color matrix. This section of memory is in I/O page 3 and starts at 0x18\_6000 (Block \$C3 Offset \$0000) when page 3 is swapped into the CPU's address space. The layout is precisely the same as the text matrix ({\it e.g.} the character at 0x18\_4023 in the text matrix has its color information at 0x18\_6023 in the color matrix).
 
 Each byte in the color matrix specifies two colors by providing an index into each of the two text LUTs. The most significant four bits is the number of the foreground color to use. The number of the least significant four bits is the number of the background color to use.
 
-Let's say the color value at 0xC123 is 0x45. This means that the foreground color of the character is color 4 from the text foreground LUT, which starts at 0xD810 (0xD800 + 4 * 4), and the background color of the character is 5 from the text background LUT, which starts at 0xD854 (0xD840 + 4 * 5). If the bytes at 0xD810 are 0x00, 0x80, 0x80, that means the foreground will be a medium yellow. If the bytes at 0xD854 are 0xFF, 0x00, 0x00, that means the background will be blue.
+Let's say the color value at 0x18\_6023 is 0x45. This means that the foreground color of the character is color 4 from the text foreground LUT, which starts at 0xFF10 (0xFF00 + 4 * 4), and the background color of the character is 5 from the text background LUT, which starts at 0xFF54 (0xFF40 + 4 * 5). If the bytes at 0xFF10 are 0x00, 0x80, 0x80, that means the foreground will be a medium yellow. If the bytes at 0xFF54 are 0xFF, 0x00, 0x00, that means the background will be blue.
 
 \example{Make That ``A'' Yellow on Blue}
 \begin{verbatim}
@@ -105,14 +105,14 @@ Let's say the color value at 0xC123 is 0x45. This means that the foreground colo
 
 \section*{Entering Text Mode}
 
-Whether text mode is being displayed (and in what resolution) is controlled by the VICKY Master Control Registers (see table~\ref{tab:vky_master_ctrl_reg}). For now, we're going to ignore most of the bits, which are used by other display modes. For text mode, we really only care about the TEXT bit, which needs to be set to turn on the text display. The resolution is controlled by DBL\_Y, DBL\_X, and CLK\_70. If we set 0xD000 to 0x01 and 0xD001 to 0x00, that will put us into text mode at $80 \times 60$.
+Whether text mode is being displayed (and in what resolution) is controlled by the VICKY Master Control Registers (see table~\ref{tab:vky_master_ctrl_reg}). For now, we're going to ignore most of the bits, which are used by other display modes. For text mode, we really only care about the TEXT bit, which needs to be set to turn on the text display. The resolution is controlled by DBL\_Y, DBL\_X, and CLK\_70. If we set 0xFFC0 to 0x01 and 0xFFC1 to 0x00, that will put us into text mode at $80 \times 60$.
 
 \begin{table}[ht]
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline\hline
-            \verb+0xD000+ & R/W & X & GAMMA & SPRITE & TILE & BITMAP & GRAPH & OVRLY & TEXT \\ \hline
-            \verb+0xD001+ & R/W & \multicolumn{2}{|c|}{---} & FON\_SET & FON\_OVLY & MON\_SLP & DBL\_Y & DBL\_X & CLK\_70 \\ \hline
+            \verb+0xFFC0+ & R/W & X & GAMMA & SPRITE & TILE & BITMAP & GRAPH & OVRLY & TEXT \\ \hline
+            \verb+0xFFC1+ & R/W & \multicolumn{2}{|c|}{---} & FON\_SET & FON\_OVLY & MON\_SLP & DBL\_Y & DBL\_X & CLK\_70 \\ \hline
         \end{tabular}
     \end{center}
     \caption{VICKY Master Control Registers}
@@ -151,7 +151,7 @@ Whether text mode is being displayed (and in what resolution) is controlled by t
 \section*{Text Fonts}
 \label{sec:text_font}
 
-Character shapes (or ``glyphs,'' if you prefer) are defined in font memory, which is in I/O page 1 and starts at 0xC000. TinyVicky provides for two font sets, and which one is used for text mode is controlled by the FON\_SET bit in the Vicky Master Control Register. Only one will be in use at any given time in normal operation. Font set 0 is from 0xC000 through 0xC7FF. Font set 1 is from 0xC800 through 0xCFFF.
+Character shapes (or ``glyphs,'' if you prefer) are defined in font memory, which is in I/O page 1 and starts at 0x18\_2000 (Block \$C1 Offset \$0000). TinyVicky provides for two font sets, and which one is used for text mode is controlled by the FON\_SET bit in the Vicky Master Control Register. Only one will be in use at any given time in normal operation. Font set 0 is from 0x18\_2000 through 0x1827FF. Font set 1 is from 0x18\_2800 through 0x182FFF (Block \$C2 Offset \$0800).
 
 The \jr\ treats each character as a square of pixels, 8 pixels on a side. A pixel may be either in the foreground color for the character or in the background color for the character. The way this is managed is that each character has a sequence of eight bytes in the font memory. Each byte represents a row in the character, and each bit represents a pixel in the row ($\blacksquare$ for foreground, $\square$ for background).
 
@@ -173,7 +173,7 @@ As an example, let's say we wanted to have a fancy ``F'' for character 0:
     \label{tab:text_font}
 \end{table}
 
-The glyph to display would be defined by the eight byte sequence 0x1F, 0x30, 0x30, 0x7C, 0x60, 0xC0, 0xC0. We would store that sequence in I/O page 0, starting at 0xC000 (0x1F), through 0xC007 (0xC0). After that was set, any time the byte 0x00 is written to screen memory, the glyph ``F'' would be displayed in that position.
+The glyph to display would be defined by the eight byte sequence 0x1F, 0x30, 0x30, 0x7C, 0x60, 0xC0, 0xC0. We would store that sequence starting at 0x18\_2000 (0x1F), through 0x18\_2007 (0xC0). After that was set, any time the byte 0x00 is written to screen memory, the glyph ``F'' would be displayed in that position.
 
 \section*{Text Cursor}
 
@@ -183,12 +183,13 @@ The glyph to display would be defined by the eight byte sequence 0x1F, 0x30, 0x3
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & Name & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xD010+ & R/W & CCR & \multicolumn{4}{|c|}{---} & FLASH\_DIS & \multicolumn{2}{|c|}{RATE} & ENABLE \\ \hline
-            \verb+0xD012+ & R/W & CCH & \multicolumn{8}{|c|}{Cursor character} \\ \hline
-            \verb+0xD014+ & R/W & \multirow{2}{*}{CURX} & X7 & X6 & X5 & X4 & X3 & X2 & X1 & X0 \\ \cline{1-2}\cline{4-11}
-            \verb+0xD015+ & R/W &  & X15 & X14 & X13 & X12 & X11 & X10 & X9 & X8 \\ \hline
-            \verb+0xD016+ & R/W & \multirow{2}{*}{CURY} & Y7 & Y6 & Y5 & Y4 & Y3 & Y2 & Y1 & Y0 \\ \cline{1-2}\cline{4-11}
-            \verb+0xD017+ & R/W &  & Y15 & Y14 & Y13 & Y12 & Y11 & Y10 & Y9 & Y8 \\ \hline
+            \verb+0xFFD0+ & R/W & CCR & \multicolumn{4}{|c|}{---} & FLASH\_DIS & \multicolumn{2}{|c|}{RATE} & ENABLE \\ \hline
+            \verb+0xFFD2+ & R/W & CCH & \multicolumn{8}{|c|}{Cursor character} \\ \hline
+            \verb+0xFFD3+ & R/W & CCO & \multicolumn{8}{|c|}{Cursor Color} \\ \hline            
+            \verb+0xFFD4+ & R/W &  \multirow{2}{*}{CURX} & X15 & X14 & X13 & X12 & X11 & X10 & X9 & X8 \\ \cline{1-2}\cline{4-11}
+            \verb+0xFFD5+ & R/W &  & X7 & X6 & X5 & X4 & X3 & X2 & X1 & X0 \\ \hline 
+            \verb+0xFFC6+ & R/W &  \multirow{2}{*}{CURY} & Y15 & Y14 & Y13 & Y12 & Y11 & Y10 & Y9 & Y8 \\ \cline{1-2}\cline{4-11}
+            \verb+0xFFD7+ & R/W &  & Y7 & Y6 & Y5 & Y4 & Y3 & Y2 & Y1 & Y0 \\ \hline
         \end{tabular}
     \end{center}
     \caption{Text Cursor Registers}

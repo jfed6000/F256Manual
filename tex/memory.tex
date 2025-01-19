@@ -63,14 +63,14 @@ Of the eight CPU memory banks, one is special. Bank 6 can be mapped to memory as
 	\label{tab:io_banks}
 \end{table}
 
-The MMU is controlled through two main registers, which are always at locations 0x0000 and 0x0001 in the CPU's address space (see table~\ref{tab:mmu_registers}). These registers allow programs to select an active MLUT, edit a MLUT, and control bank 6:
+The MMU is controlled through two main registers, which are always at locations 0xFFA0 and 0xFFA1 in the CPU's address space (see table~\ref{tab:mmu_registers}). These registers allow programs to select an active MLUT, edit a MLUT, and control bank 6:
 
 \begin{table}[ht]
 	\begin{center}
 		\begin{tabular}{| c | c | c || c | c | c | c | c | c | c | c |} \hline
 			Address & R/W & Name & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline\hline
-			\verb+0x0000+ & RW & MMU\_MEM\_CTRL & EDIT\_EN & --- & \multicolumn{2}{|c|}{EDIT\_LUT} & --- & --- & \multicolumn{2}{|c|}{ACT\_LUT} \\ \hline
-			\verb+0x0001+ & RW & MMU\_IO\_CTRL & \multicolumn{5}{|c|}{---} & IO\_DISABLE & \multicolumn{2}{|c|}{IO\_PAGE} \\ \hline
+			\verb+0xFFA0+ & RW & MMU\_MEM\_CTRL & EDIT\_EN & --- & \multicolumn{2}{|c|}{EDIT\_LUT} & --- & --- & \multicolumn{2}{|c|}{ACT\_LUT} \\ \hline
+			\verb+0xFFA1+ & RW & MMU\_IO\_CTRL & \multicolumn{5}{|c|}{---} & IO\_DISABLE & \multicolumn{2}{|c|}{IO\_PAGE} \\ \hline
 		\end{tabular}
 	\end{center}
 	\caption{MMU Registers}
@@ -80,9 +80,9 @@ The MMU is controlled through two main registers, which are always at locations 
 \begin{description}
 	\item[ACT\_LUT] these two bits specify which MLUT (0--3) is used to translate CPU bus address to system bus addresses.
 
-	\item[EDIT\_EN] if set (1), this bit allows a MLUT to be edited by the program, and memory addresses 0x0008--0x0010 will be used by the MLUT being edited. If clear (0), those memory locations will be standard memory locations and will be mapped like the rest of bank 0.
+	\item[EDIT\_EN] if set (1), this bit allows a MLUT to be edited by the program, and memory addresses 0xFFA8--0xFFAF will be used by the MLUT being edited. If clear (0), those memory locations will be standard memory locations and will be mapped like the rest of bank 0.
 
-	\item[EDIT\_LUT] if EDIT\_EN is set, these two bits will specify which MLUT (0 - 3) is being edited and will appear in memory addresses 0x0008--0x0010.
+	\item[EDIT\_LUT] if EDIT\_EN is set, these two bits will specify which MLUT (0 - 3) is being edited and will appear in memory addresses 0xFFA8--0xFFAF.
 
 	\item[IO\_DISABLE] if set (1), bank 6 is mapped like any other memory bank. If clear (0), bank 6 is mapped to I/O memory.
 

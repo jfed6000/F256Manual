@@ -5,22 +5,22 @@ TinyVicky allows for three full screen bitmaps to be displayed at once. These bi
 
 \begin{table}[ht]
     \begin{center}
-        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
-            Address & R/W & Bitmap & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline\hline
-            \verb+C0x1000+ & R/W & \multirow{4}{*}{0} & \multicolumn{5}{|c|}{---} & \multicolumn{2}{|c|}{CLUT} & ENABLE \\\cline{1-2}\cline{4-11}
-            \verb+C0x1003+ & R/W & & \multicolumn{5}{|c|}{---} & AD18 & AD17 & AD16 \\ \hline
-            \verb+C0x1002+ & R/W & & AD15 & AD14 & AD13 & AD12 & AD11 & AD10 & AD9 & AD8 \\\cline{1-2}\cline{4-11}
-            \verb+C0x1001+ & R/W & & AD7 & AD6 & AD5 & AD4 & AD3 & AD2 & AD1 & AD0 \\\cline{1-2}\cline{4-11}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+            Blk & Offset & Address & R/W & BM & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline\hline
+            \$C0 & \$1000 & 0x18\_1000 & R/W & \multirow{4}{*}{0} & \multicolumn{5}{|c|}{---} & \multicolumn{2}{|c|}{CLUT} & ENABLE \\\cline{1-4}\cline{6-13}
+            \$C0 & \$1001 & 0x18\_1001 & R/W & & \multicolumn{5}{|c|}{---} & AD18 & AD17 & AD16 \\\cline{1-4}\cline{6-13} 
+            \$C0 & \$1002 & 0x18\_1002 & R/W & & AD15 & AD14 & AD13 & AD12 & AD11 & AD10 & AD9 & AD8 \\\cline{1-4}\cline{6-13}
+            \$C0 & \$1003 & 0x18\_1003 & R/W & & AD7 & AD6 & AD5 & AD4 & AD3 & AD2 & AD1 & AD0 \\ \hline
 
-            \verb+C0x1008+ & R/W & \multirow{4}{*}{1} & \multicolumn{5}{|c|}{---} & \multicolumn{2}{|c|}{CLUT} & ENABLE \\\cline{1-2}\cline{4-11}
-            \verb+C0x100B+ & R/W & & \multicolumn{5}{|c|}{---} & AD18 & AD17 & AD16 \\ \hline
-            \verb+C0x100A+ & R/W & & AD15 & AD14 & AD13 & AD12 & AD11 & AD10 & AD9 & AD8 \\\cline{1-2}\cline{4-11}
-            \verb+C0x1009+ & R/W & & AD7 & AD6 & AD5 & AD4 & AD3 & AD2 & AD1 & AD0 \\\cline{1-2}\cline{4-11}
+            \$C0 & \$1008 & 0x18\_1008 & R/W & \multirow{4}{*}{1} & \multicolumn{5}{|c|}{---} & \multicolumn{2}{|c|}{CLUT} & ENABLE \\\cline{1-4}\cline{6-13}
+            \$C0 & \$1009 & 0x18\_1009 & R/W & & \multicolumn{5}{|c|}{---} & AD18 & AD17 & AD16 \\\cline{1-4}\cline{6-13} 
+            \$C0 & \$100A & 0x18\_100A & R/W & & AD15 & AD14 & AD13 & AD12 & AD11 & AD10 & AD9 & AD8 \\\cline{1-4}\cline{6-13}
+            \$C0 & \$100B & 0x18\_100B & R/W & & AD7 & AD6 & AD5 & AD4 & AD3 & AD2 & AD1 & AD0 \\ \hline
 
-            \verb+C0x1110+ & R/W & \multirow{4}{*}{2} & \multicolumn{5}{|c|}{---} & \multicolumn{2}{|c|}{CLUT} & ENABLE \\\cline{1-2}\cline{4-11}
-            \verb+C0x1113+ & R/W & & \multicolumn{5}{|c|}{---} & AD18 & AD17 & AD16 \\ \hline
-            \verb+C0x1112+ & R/W & & AD15 & AD14 & AD13 & AD12 & AD11 & AD10 & AD9 & AD8 \\\cline{1-2}\cline{4-11}
-            \verb+C0x1111+ & R/W & & AD7 & AD6 & AD5 & AD4 & AD3 & AD2 & AD1 & AD0 \\\cline{1-2}\cline{4-11}
+            \$C0 & \$1010 & 0x18\_1110 & R/W & \multirow{4}{*}{2} & \multicolumn{5}{|c|}{---} & \multicolumn{2}{|c|}{CLUT} & ENABLE \\\cline{1-4}\cline{6-13}
+            \$C0 & \$1011 & 0x18\_1112 & R/W & & \multicolumn{5}{|c|}{---} & AD18 & AD17 & AD16 \\\cline{1-4}\cline{6-13} 
+            \$C0 & \$1012 & 0x18\_1112 & R/W & & AD15 & AD14 & AD13 & AD12 & AD11 & AD10 & AD9 & AD8 \\\cline{1-4}\cline{6-13}
+            \$C0 & \$1013 & 0x18\_1113 & R/W & & AD7 & AD6 & AD5 & AD4 & AD3 & AD2 & AD1 & AD0 \\ \hline
         \end{tabular}
     \end{center}
     \caption{Bitmap Registers}

@@ -7,14 +7,14 @@ The \jr\ includes a built-in math coprocessor for integer math. This coprocessor
     \begin{center}
         \begin{tabular}{|c|c|c|c|} \hline
             Address & R/W & Name & Data \\\hline\hline
-            0xDE00  & R/W & MULU\_A\_L & Unsigned A Low Byte \\\hline
-            0xDE01  & R/W & MULU\_A\_H & Unsigned A High Byte \\\hline
-            0xDE02  & R/W & MULU\_B\_L & Unsigned B Low Byte \\\hline
-            0xDE03  & R/W & MULU\_B\_H & Unsigned B High Byte \\\hline
-            0xDE10  & R   & MULU\_LL   & $A \times B$ (unsigned) byte 0 \\\hline
-            0xDE11  & R   & MULU\_LH   & $A \times B$ (unsigned) byte 1 \\\hline
-            0xDE12  & R   & MULU\_HL   & $A \times B$ (unsigned) byte 2 \\\hline
-            0xDE13  & R   & MULU\_HH   & $A \times B$ (unsigned) byte 3 \\\hline
+            0xFEE0  & R/W & MULU\_A\_H & Unsigned A High Byte \\\hline
+            0xFEE1  & R/W & MULU\_A\_L & Unsigned A Low Byte \\\hline
+            0xFEE2  & R/W & MULU\_B\_H & Unsigned B High Byte \\\hline
+            0xFEE3  & R/W & MULU\_B\_L & Unsigned B Low Byte \\\hline
+            0xFEF0  & R   & MULU\_HH   & $A \times B$ (unsigned) byte 3 \\\hline
+            0xFEF1  & R   & MULU\_HL   & $A \times B$ (unsigned) byte 2 \\\hline
+            0xFEF2  & R   & MULU\_LH   & $A \times B$ (unsigned) byte 1 \\\hline
+            0xFEF3  & R   & MULU\_LL   & $A \times B$ (unsigned) byte 0 \\\hline
         \end{tabular}
     \end{center}
     \caption{Unsigned Multiplication Registers}
@@ -25,14 +25,14 @@ The \jr\ includes a built-in math coprocessor for integer math. This coprocessor
     \begin{center}
         \begin{tabular}{|c|c|c|c|} \hline
             Address & R/W & Name & Data \\\hline\hline
-            0xDE04  & R/W & DIVU\_DEN\_L & Unsigned Denominator Low Byte \\\hline
-            0xDE05  & R/W & DIVU\_DEN\_H & Unsigned Denominator High Byte \\\hline
-            0xDE06  & R/W & DIVU\_NUM\_L & Unsigned Numerator Low Byte \\\hline
-            0xDE07  & R/W & DIVU\_NUM\_H & Unsigned Numerator High Byte \\\hline
-            0xDE14  & R   & QUOU\_LL   & Quotient of ${\rm NUM} / {\rm DEN}$ (unsigned) low byte \\\hline
-            0xDE15  & R   & QUOU\_LH   & Quotient of ${\rm NUM} / {\rm DEN}$ (unsigned) high byte \\\hline
-            0xDE16  & R   & REMU\_HL   & Remainder of ${\rm NUM} / {\rm DEN}$ (unsigned) low byte \\\hline
-            0xDE17  & R   & REMU\_HH   & Remainder of ${\rm NUM} / {\rm DEN}$ (unsigned) low byte \\\hline  
+            0xFEE4  & R/W & DIVU\_DEN\_H & Unsigned Denominator High Byte \\\hline
+            0xFEE5  & R/W & DIVU\_DEN\_L & Unsigned Denominator Low Byte \\\hline
+            0xFEE6  & R/W & DIVU\_NUM\_H & Unsigned Numerator High Byte \\\hline
+            0xFEE7  & R/W & DIVU\_NUM\_L & Unsigned Numerator Low Byte \\\hline
+            0xFEF4  & R   & REMU\_HH   & Remainder of ${\rm NUM} / {\rm DEN}$ (unsigned) low byte \\\hline  
+            0xFEF5  & R   & REMU\_HL   & Remainder of ${\rm NUM} / {\rm DEN}$ (unsigned) low byte \\\hline
+            0xFEF6  & R   & QUOU\_LH   & Quotient of ${\rm NUM} / {\rm DEN}$ (unsigned) high byte \\\hline
+            0xFEF7  & R   & QUOU\_LL   & Quotient of ${\rm NUM} / {\rm DEN}$ (unsigned) low byte \\\hline
         \end{tabular}
     \end{center}
     \caption{Unsigned Division Registers}
@@ -43,18 +43,18 @@ The \jr\ includes a built-in math coprocessor for integer math. This coprocessor
     \begin{center}
         \begin{tabular}{|c|c|c|c|} \hline
             Address & R/W & Name & Data \\\hline\hline
-            0xDE08 & R/W & ADD\_A\_LL & Unsigned A byte 0 \\\hline
-            0xDE09 & R/W & ADD\_A\_LH & Unsigned A byte 1 \\\hline
-            0xDE0A & R/W & ADD\_A\_HL & Unsigned A byte 2 \\\hline
-            0xDE0B & R/W & ADD\_A\_HH & Unsigned A byte 3 \\\hline
-            0xDE0C & R/W & ADD\_B\_LL & Unsigned B byte 0 \\\hline
-            0xDE0D & R/W & ADD\_B\_LH & Unsigned B byte 1 \\\hline
-            0xDE0E & R/W & ADD\_B\_HL & Unsigned B byte 2 \\\hline
-            0xDE0F & R/W & ADD\_B\_HH & Unsigned B byte 3 \\\hline
-            0xDE18 & R   & ADD\_R\_LL & $A + B$ (unsigned) byte 0 \\\hline
-            0xDE19 & R   & ADD\_R\_LH & $A + B$ (unsigned) byte 1 \\\hline
-            0xDE1A & R   & ADD\_R\_HL & $A + B$ (unsigned) byte 2 \\\hline
-            0xDE1B & R   & ADD\_R\_HH & $A + B$ (unsigned) byte 3 \\\hline
+            0xFEE8 & R/W & ADD\_A\_HH & Unsigned A byte 3 \\\hline
+            0xFEE9 & R/W & ADD\_A\_HL & Unsigned A byte 2 \\\hline
+            0xFEEA & R/W & ADD\_A\_LH & Unsigned A byte 1 \\\hline
+            0xFEEB & R/W & ADD\_A\_LL & Unsigned A byte 0 \\\hline
+            0xFEEC & R/W & ADD\_B\_HH & Unsigned B byte 3 \\\hline
+            0xFEED & R/W & ADD\_B\_HL & Unsigned B byte 2 \\\hline
+            0xFEEE & R/W & ADD\_B\_LH & Unsigned B byte 1 \\\hline
+            0xFEEF & R/W & ADD\_B\_LL & Unsigned B byte 0 \\\hline
+            0xFEF8 & R   & ADD\_R\_HH & $A + B$ (unsigned) byte 3 \\\hline
+            0xFEF9 & R   & ADD\_R\_HL & $A + B$ (unsigned) byte 2 \\\hline
+            0xFEFA & R   & ADD\_R\_LH & $A + B$ (unsigned) byte 1 \\\hline
+            0xFEFB & R   & ADD\_R\_LL & $A + B$ (unsigned) byte 0 \\\hline
         \end{tabular}
     \end{center}
     \caption{Unsigned 32-bit Addition Registers}

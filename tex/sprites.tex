@@ -2,20 +2,20 @@
 
 In addition to bitmaps and tiles, the \jr\ provides support for sprites, which are mobile graphical objects that can appear anywhere on the screen. \jr\ sprites are similar to the sprites on the Commodore 64 or player-missile graphics on the 8-bit Atari computers, but they are more flexible than either of those. A sprite is essentially a little bitmap that can be positioned anywhere on the screen. Each one can come in one of four sizes: $8 \times 8$, $16 \times 16$, $24 \times 24$, or $32 \times 32$. Each one can display up to 256 colors, picked from one of the four graphics color lookup tables.
 
-A program for the \jr\ can use up to 64 sprites, each one of which is controlled by a block of sprite control registers. The sprite control registers are in I/O page 0, and start at 0xD900. Each sprite takes up 8 bytes, so sprite 0 starts at 0xD900, sprite 1 starts at 0xD908, sprite 2 at 0xD910, and so on. The registers for each sprite are arranged within that block of 8 bytes as shown in table~\ref{tab:sp_reg}.
+A program for the \jr\ can use up to 64 sprites, each one of which is controlled by a block of sprite control registers. The sprite control registers are in I/O page 0, and start at 0x18\_1300 (Block \$C0 offset \$1300). Each sprite takes up 8 bytes, so sprite 0 starts at 0x18\_1300, sprite 1 starts at 0x18\_1308, sprite 2 at 0x18\_1310, and so on. The registers for each sprite are arranged within that block of 8 bytes as shown in table~\ref{tab:sp_reg}.
 
 \begin{table}[ht]
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
             Offset & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline\hline
             0 & W & --- & \multicolumn{2}{|c|}{SIZE} & \multicolumn{2}{|c|}{LAYER} & \multicolumn{2}{|c|}{LUT} & ENABLE \\ \hline
-            1 & W & AD7 & AD6 & AD5 & AD4 & AD3 & AD2 & AD1 & AD0 \\ \hline
+            1 & W & \multicolumn{5}{|c|}{---} & AD18 & AD17 & AD16 \\ \hline
             2 & W & AD15 & AD14 & AD13 & AD12 & AD11 & AD10 & AD9 & AD8 \\ \hline
-            3 & W & \multicolumn{5}{|c|}{---} & AD18 & AD17 & AD16 \\ \hline
-            4 & W & X7 & X6 & X5 & X4 & X3 & X2 & X1 & X0 \\ \hline
-            5 & W & X15 & X14 & X13 & X12 & X11 & X10 & X9 & X8 \\ \hline
-            6 & W & Y7 & Y6 & Y5 & Y4 & Y3 & Y2 & Y1 & Y0 \\ \hline
-            7 & W & Y15 & Y14 & Y13 & Y12 & Y11 & Y10 & Y9 & Y8 \\ \hline
+            3 & W & AD7 & AD6 & AD5 & AD4 & AD3 & AD2 & AD1 & AD0 \\ \hline
+            4 & W & X15 & X14 & X13 & X12 & X11 & X10 & X9 & X8 \\ \hline
+            5 & W & X7 & X6 & X5 & X4 & X3 & X2 & X1 & X0 \\ \hline
+            6 & W & Y15 & Y14 & Y13 & Y12 & Y11 & Y10 & Y9 & Y8 \\ \hline
+            7 & W & Y7 & Y6 & Y5 & Y4 & Y3 & Y2 & Y1 & Y0 \\ \hline
         \end{tabular}
     \end{center}
     \caption{Sprite Registers for a Single Sprite}
