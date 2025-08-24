@@ -98,7 +98,7 @@ The \jr\ has a built-in pseudo-random number generator that produces 16-bit rand
 
 \section*{Machine ID and Version Information}
 
-Nine registers are set aside to identify the machine, the version of the printed circuit board, and the version of the FPGA. See table~\ref{tab:machine_id_ver} for the various registers. All the registers are read-only, and only the chip information will change over the course of the machine's life span. The machine ID contains a four-bit code that is common between all the Foenix machines (see table~\ref{tab:machine_ids}).
+Nine registers are set aside to identify the machine, the version of the printed circuit board, and the version of the FPGA. See table~\ref{tab:machine_id_ver} for the various registers. All the registers are read-only, and only the chip information will change over the course of the machine's life span. The machine ID contains a six-bit code that is common between all the Foenix machines (see table~\ref{tab:machine_ids}).
 
 For the \jr, the machine ID will be 0x02. For the \fk, the machine ID will be 0x12.
 
@@ -130,21 +130,41 @@ For the \jr, the machine ID will be 0x02. For the \fk, the machine ID will be 0x
 
 \begin{table}[ht]
     \begin{center}
-        \begin{tabular}{|c|c|c|c|c|c|} \hline
-            MID4 & MID3 & MID2 & MID1 & MID0 & Machine \\\hline\hline
-            0 & 0 & 0 & 0 & 0 & C256 FMX \\ \hline
-            0 & 0 & 0 & 0 & 1 & C256 U \\ \hline
-            0 & 0 & 0 & 1 & 0 & \jr \\ \hline
-            1 & 0 & 0 & 1 & 0 & \fk \\ \hline
-            0 & 0 & 0 & 1 & 1 & A2560 Dev \\ \hline
-            0 & 0 & 1 & 0 & 0 & Gen X \\ \hline
-            0 & 0 & 1 & 0 & 1 & C256 U+ \\ \hline
-            0 & 0 & 1 & 1 & 0 & Reserved \\ \hline
-            0 & 0 & 1 & 1 & 1 & Reserved \\ \hline
-            0 & 1 & 0 & 0 & 0 & A2560 X \\ \hline
-            0 & 1 & 0 & 0 & 1 & A2560 U \\ \hline
-            0 & 1 & 0 & 1 & 0 & A2560 M \\ \hline
-            0 & 1 & 0 & 1 & 1 & A2560 K \\ \hline
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
+            MID5 & MID4 & MID3 & MID2 & MID1 & MID0 & \vtop{\hbox{\strut Hex using}\hbox{\strut 0x1F Mask}} & CPU & Machine \\ \hline\hline
+            0 & 0 & 0 & 0 & 1 & 0 & \verb+0x02+ & 6502/65816/6809 & F256 Jr. (mmu) \\ \hline
+            0 & 1 & 0 & 0 & 1 & 1 & \verb+0x12+ & 6502/65816/6809 & F256K (mmu) \\ \hline
+            0 & 1 & 1 & 0 & 1 & 0 & \verb+0x1A+ & 6809 & F256 Jr.Jr. \\ \hline
+            0 & 1 & 0 & 1 & 1 & 0 & \verb+0x16+ & 6809 & F256K2 \\ \hline\hline
+            0 & 0 & 0 & 0 & 0 & 0 & \verb+0x00+ & 65816 & C256 FMX \\ \hline
+            0 & 0 & 0 & 0 & 0 & 1 & \verb+0x01+ & 65816 & C256 U \\ \hline
+            0 & 0 & 0 & 0 & 1 & 0 & \verb+0x02+ & 6502/65816/6809 & F256 Jr. (mmu) \\ \hline
+            0 & 0 & 0 & 0 & 1 & 1 & \verb+0x03+ & 65816 & F256 Jr. (ext) \\ \hline
+            1 & 0 & 0 & 0 & 1 & 1 & \verb+0x02+ & 65816 & F256 Jr.Jr. (mmu) \\ \hline
+            1 & 0 & 0 & 0 & 1 & 1 & \verb+0x03+ & 65816 & F256 Jr.Jr. (ext) \\ \hline
+            0 & 0 & 0 & 1 & 0 & 0 & \verb+0x04+ & 65816 & Gen X \\ \hline
+            0 & 0 & 0 & 1 & 0 & 1 & \verb+0x05+ & 65816 & C256 U+ (4M SRAM) \\ \hline
+            0 & 0 & 0 & 1 & 1 & 0 & \verb+0x06+ & Reserved & Reserved \\ \hline
+            0 & 0 & 0 & 1 & 1 & 1 & \verb+0x07+ & Reserved & Reserved \\ \hline
+            0 & 0 & 1 & 0 & 0 & 0 & \verb+0x08+ & 68xx0xx & A2560 X/GenX \\ \hline
+            0 & 0 & 1 & 0 & 0 & 1 & \verb+0x09+ & 68EC000 & A2560 U+ \\ \hline
+            0 & 0 & 1 & 0 & 1 & 0 & \verb+0x0A+ & 68LC060 & A2560 M  \\ \hline
+            0 & 0 & 1 & 0 & 1 & 1 & \verb+0x0B+ & 68040RC25V & A2560 K (classic) \\ \hline
+            0 & 0 & 1 & 1 & 0 & 0 & \verb+0x0C+ & 68040FE33V & A2560 K40 \\ \hline
+            0 & 0 & 1 & 1 & 0 & 1 & \verb+0x0D+ & 68LC060 & A2560 K60 \\ \hline
+            0 & 0 & 1 & 1 & 1 & 0 & \verb+0x0E+ & Undefined & Undefined \\ \hline
+            0 & 0 & 1 & 1 & 1 & 1 & \verb+0x0F+ & Undefined & Undefined  \\ \hline
+            0 & 1 & 0 & 0 & 0 & 0 & \verb+0x10+ & 65816 & F256P  \\ \hline
+            0 & 1 & 0 & 0 & 0 & 1 & \verb+0x11+ & 65816 & F256K2 (mmu) \\ \hline
+            0 & 1 & 0 & 0 & 1 & 0 & \verb+0x12+ & 6502/65816/6809 & F256K (mmu) \\ \hline
+            0 & 1 & 0 & 0 & 1 & 1 & \verb+0x13+ & 6502/65816 & F256K (ext) \\ \hline
+            0 & 1 & 0 & 1 & 0 & 0 & \verb+0x14+ & 65816 & F256K2 (ext) \\ \hline
+            0 & 1 & 0 & 1 & 0 & 1 & \verb+0x15+ & Reserved & Reserved  \\ \hline
+            0 & 1 & 0 & 1 & 1 & 0 & \verb+0x16+ & 6809	& F256K2 \\ \hline 
+            0 & 1 & 0 & 1 & 1 & 1 & \verb+0x17+ & Reserved & Reserved  \\ \hline
+            0 & 1 & 1 & 0 & 0 & 0 & \verb+0x18+ & 68000 & F256K2 \\ \hline
+            0 & 1 & 1 & 0 & 0 & 1 & \verb+0x19+ & Reserved & Reserved  \\ \hline
+            0 & 1 & 1 & 0 & 1 & 0 & \verb+0x1A+ & 6809	& F256 Jr.Jr. (mmu) \\ \hline            
         \end{tabular}
     \end{center}
     \caption{Machine IDs}

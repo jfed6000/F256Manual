@@ -1,11 +1,11 @@
 \chapter{Interrupt Controller}
 \label{chap:interrupts}
 
-The 65C02 has two interrupts: non-maskable interrupts (NMI) for high priority events, and the regular interrupt request line (IRQ) for normal priority events. Currently, the \jr\ series of computers do not use NMI for any purpose, so the only interrupt is the IRQ line. There are many devices on the \jr\ which can trigger interrupts, so to save the interrupt handler the chore of querying each device in turn, the \jr\ provides an interrupt controller module.
+The Motorola 6809 has three hardware interrupts: the non-maskable interrupt (NMI) for high-priority events, the fast interrupt request (FIRQ) for time-critical tasks, and the regular interrupt request (IRQ) for normal-priority events. Currently, the \jr\ series of computers do not use NMI or FIRQ for any purpose, so the primary interrupt is IRQ. Multiple devices on the \jr\ can trigger interrupts, and to relieve the interrupt handler from querying each device individually, the \jr\ provides an interrupt controller module.
 
 The individual devices route their interrupt request signals to the interrupt controller. When an interrupt comes in, the controller knows which device it is and decides whether to forward the interrupt to the CPU. The interrupt handler can then query the interrupt handler to see which device or devices have interrupts pending and can then acknowledge them once they have been properly handled.
 
-Each interrupt that the interrupt controller manages belongs to one of three separate groups. Each group manages at most eight interrupts, and each interrupt within that group has its own bit within the group. That bit is used in the four registers that control the interrupts for that group (see table \ref{tab:int_reg}). The four different registers for each group are:
+Each interrupt that the interrupt controller manages belongs to one of four separate groups. Each group manages at most eight interrupts, and each interrupt within that group has its own bit within the group. That bit is used in the four registers that control the interrupts for that group (see table \ref{tab:int_reg}). The four different registers for each group are:
 
 \begin{description}
     \item[PENDING] In this register, there are eight flags, one for each interrupt in the group. When reading the register, if the flag is set, the interrupt controller has received that interrupt. When writing to the register, setting a flag will clear the pending status of the interrupt.
@@ -32,13 +32,17 @@ Each interrupt that the interrupt controller manages belongs to one of three sep
                                & 0xFE26 & INT\_POLARITY\_2 \\ \cline{2-3}
                                & 0xFE2A & INT\_EDGE\_2 \\ \cline{2-3}
                                & 0xFE2E & INT\_MASK\_2 \\ \hline
+            \multirow{4}{*}{2} & 0xFE23 & INT\_PENDING\_2 \\ \cline{2-3}
+                               & 0xFE27 & INT\_POLARITY\_2 \\ \cline{2-3}
+                               & 0xFE2B & INT\_EDGE\_2 \\ \cline{2-3}
+                               & 0xFE2F & INT\_MASK\_2 \\ \hline
         \end{tabular}
     \end{center}
 	\caption{Interrupt Registers}
 	\label{tab:int_reg}
 \end{table}
 
-The interrupt controller registers are divided on the \jr\ into three groups: 0, 1, and 2. Group 0 represents seven of the interrupts: two video interrupts, two PS/2 controller interrupts, two timer interrupts, and the DMA interrupt. Group 1 represents the other interrupts: UART, real time clock, VIA, and the SD card controller. Group 2 represents interrupts used by the IEC serial port. See tables \ref{tab:int_group_0}, \ref{tab:int_group_1}, and \ref{tab:int_group_2} to see how device interrupts are assigned to their groups.
+The interrupt controller registers are divided on the \jr\ into four groups: 0, 1, 2, and 3. Group 0 represents seven of the interrupts: two video interrupts, two PS/2 controller interrupts, two timer interrupts, and the DMA interrupt. Group 1 represents the other interrupts: UART, real time clock, VIA, and the SD card controller. Group 2 represents interrupts used by the IEC serial port, and the copper network chip and WIFI external module on the F256K2. Group 3 represents interrupts for the WIFI, MIDI, optical keyboard (K2 only), WS6100 FIFI Rx (K2 only) and VS1053B.  See tables \ref{tab:int_group_0}, \ref{tab:int_group_1}, and \ref{tab:int_group_2} to see how device interrupts are assigned to their groups.
 
 NOTE: Some devices on the \jr\ have their own interrupt enable flags (separate from the mask flags). For example, the 65C22 VIA has an interrupt enable bit in one of its registers and will not send an interrupt to the \jr's interrupt controller if that bit is not enabled. For such devices, the interrupt enable flag on the device must be set and the corresponding mask bit in the interrupt controller must be clear in order for interrupts to be sent to the CPU. Other devices, like VICKY, do not have a separate enable flag. In their case, only their corresponding mask bits must be cleared to enable their interrupts.
 
@@ -52,7 +56,7 @@ NOTE: Some devices on the \jr\ have their own interrupt enable flags (separate f
             \verb+0x08+ & INT\_PS2\_MOUSE & PS/2 mouse event \\ \hline
             \verb+0x10+ & INT\_TIMER\_0 & TIMER0 has reached its target value \\ \hline
             \verb+0x20+ & INT\_TIMER\_1 & TIMER1 has reached its target value \\ \hline
-            \verb+0x40+ & RESERVED & \\ \hline
+            \verb+0x40+ & INT\_DMA0  \\ \hline
             \verb+0x80+ & Cartridge & Interrupt asserted by the cartidge \\ \hline
         \end{tabular}
     \end{center}
@@ -86,14 +90,32 @@ NOTE: Some devices on the \jr\ have their own interrupt enable flags (separate f
             \verb+0x02+ & IEC\_CLK\_i & IEC Clock In  \\ \hline
             \verb+0x04+ & IEC\_ATN\_i & IEC ATN In  \\ \hline
             \verb+0x08+ & IEC\_SREQ\_i & IEC SREQ In  \\ \hline
-            \verb+0x10+ & RESERVED & \\ \hline
-            \verb+0x20+ & RESERVED & \\ \hline
+            \verb+0x10+ & INT\_COP & Copper Network Chip IRQn  \\ \hline
+            \verb+0x20+ & INT\_WIFI\_EXT & WIFI External Module IRQn \\ \hline
             \verb+0x40+ & RESERVED & \\ \hline
             \verb+0x80+ & RESERVED & \\ \hline
         \end{tabular}
     \end{center}
 	\caption{Interrupt Group 2 Bit Assignment}
 	\label{tab:int_group_2}
+\end{table}
+
+\begin{table}[ht]
+	\begin{center}
+		\begin{tabular}{|c|c|l|} \hline
+            Bit & Name & Purpose \\ \hline\hline
+            \verb+0x01+ & INT\_WIFI & FIFO Rx WIFI IRQ \\ \hline
+            \verb+0x02+ & IEC\_MIDI & FIFO Rx MIDI IRQ  \\ \hline
+            \verb+0x04+ & IEC\_OPT\_KBD & K2 Optical Keyboard IRQ  \\ \hline
+            \verb+0x08+ & IEC\_WS6100 & WS6100 FIFO Rx IRQ  \\ \hline
+            \verb+0x10+ & INT\_VS1053B & FIFO Rx VS1053B  \\ \hline
+            \verb+0x20+ & RESERVED & \\ \hline
+            \verb+0x40+ & RESERVED & \\ \hline
+            \verb+0x80+ & RESERVED & \\ \hline
+        \end{tabular}
+    \end{center}
+	\caption{Interrupt Group 3 Bit Assignment}
+	\label{tab:int_group_3}
 \end{table}
 
 The Start Of Frame (SOF) and Start of Line (SOL) interrupts could use some further explanation. The SOF interrupt is raised at the beginning of the vertical blanking period, when the raster has reached the bottom of the screen and starts to return to the top. This interrupt is raised either 60 times a second or 70 times a second, depending on the value of CLK\_70 (see table~\ref{tab:vky_master_ctrl_reg}), which sets the base resolution of the screen. The SOF interrupt is good for timing updates to graphics (like placement of sprites) to avoid screen tearing. It can also be used for rough timing of events, provided the code takes into account the fact that the timing changes with screen resolution. The Start of Line interrupt is raised when the raster line has reached a target line (see table~\ref{tab:lint_reg}). When the interrupt is raised, the raster is in the process of drawing the screen and has reached the desired target line.
