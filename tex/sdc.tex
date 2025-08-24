@@ -1,16 +1,27 @@
 \chapter{SD Card Interface}
 
-TinyVicky includes an interface to the SD card port on \jr. This interface provides access to the SPI bus interface SD cards support. This interface will allow a program to exchange bytes of data with an SD card using one of two clock speeds for the transfer rate (400 kHz or 12.5 MHz).  Use of these registers requires an understanding of the SD card protocols and conventions, which are really outside the scope of this manual. So only the basic information about the control registers are provided here.
+TinyVicky includes an interface to the external and internal SD card ports on \jr. This interface provides access to the SPI bus interface SD cards support. This interface will allow a program to exchange bytes of data with an SD card using one of two clock speeds for the transfer rate (400 kHz or 12.5 MHz).  Use of these registers requires an understanding of the SD card protocols and conventions, which are really outside the scope of this manual. So only the basic information about the control registers are provided here.
 
 \begin{table}[ht]
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xDD00+ & RW & SPI\_BUSY & \multicolumn{5}{|c|}{---} & SPI\_CLK & CS\_EN \\\hline
-            \verb+0xDD01+ & RW & \multicolumn{8}{|c|}{SPI\_DATA} \\\hline
+            \verb+0xFE90+ & RW & SPI\_BUSY & \multicolumn{5}{|c|}{---} & SPI\_CLK & CS\_EN \\\hline
+            \verb+0xFE91+ & RW & \multicolumn{8}{|c|}{SPI\_DATA} \\\hline
         \end{tabular}
     \end{center}
-    \caption{SD Card Interface Registers}
+    \caption{External SD Card Interface Registers}
+\end{table}
+
+\begin{table}[ht]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|} \hline
+            Address & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
+            \verb+0xFF00+ & RW & SPI\_BUSY & \multicolumn{5}{|c|}{---} & SPI\_CLK & CS\_EN \\\hline
+            \verb+0xFF01+ & RW & \multicolumn{8}{|c|}{SPI\_DATA} \\\hline
+        \end{tabular}
+    \end{center}
+    \caption{Internal SD Card Interface Registers}
 \end{table}
 
 \begin{description}

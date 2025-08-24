@@ -38,7 +38,7 @@ Note: this example does not set the font or the color, so depending on how your 
 
 Characters in TinyVicky text mode have two colors: the foreground and the background. The foreground and background colors are picked for each character out of two different palettes of 16 colors each. The colors in the palettes are picked from the full range of colors \jr\ can produce, which is more than 16 million colors. This is all managed through two color lookup tables (LUTs) provided by TinyVicky: a text foreground color LUT, and a text background color LUT.
 
-The text LUTs are stored in I/O page 0. The foreground LUT starts at 0xFF00, and the background LUT starts at 0xFF40.
+The text LUTs are stored in I/O page 0. The foreground LUT starts at 18x3800, and the background LUT starts at 18x3840 (Block \$C1 0x1800 and Block \$C1 0x1840).
 
 Each LUT is a list of 16 entries. Each entry is a set of four bytes: blue, green, red, and alpha (in that order). Each byte indicates how much of that primary color is present as a component of the actual color. The values range from 0 (none) to 255 (as much as possible). Currently, the alpha channel is not used and is there for future expansion.
 
@@ -46,26 +46,52 @@ Each LUT is a list of 16 entries. Each entry is a set of four bytes: blue, green
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline
             Index & R/W & Foreground & Background & 0 & 1 & 2 & 3 \\ \hline\hline
-            0 & W & \verb+0xFF00+ & \verb+0xFF40+ & BLUE\_0 & GREEN\_0 & RED\_0 & X \\ \hline
-            1 & W & \verb+0xFF04+ & \verb+0xFF44+ & BLUE\_1 & GREEN\_1 & RED\_1 & X \\ \hline
-            2 & W & \verb+0xFF08+ & \verb+0xFF48+ & BLUE\_2 & GREEN\_2 & RED\_2 & X \\ \hline
-            3 & W & \verb+0xFF0C+ & \verb+0xFF4C+ & BLUE\_3 & GREEN\_3 & RED\_3 & X \\ \hline
-            4 & W & \verb+0xFF10+ & \verb+0xFF50+ & BLUE\_4 & GREEN\_4 & RED\_4 & X \\ \hline
-            5 & W & \verb+0xFF14+ & \verb+0xFF54+ & BLUE\_5 & GREEN\_5 & RED\_5 & X \\ \hline
-            6 & W & \verb+0xFF18+ & \verb+0xFF58+ & BLUE\_6 & GREEN\_6 & RED\_6 & X \\ \hline
-            7 & W & \verb+0xFF1C+ & \verb+0xFF5C+ & BLUE\_7 & GREEN\_7 & RED\_7 & X \\ \hline
-            8 & W & \verb+0xFF20+ & \verb+0xFF60+ & BLUE\_8 & GREEN\_8 & RED\_8 & X \\ \hline
-            9 & W & \verb+0xFF24+ & \verb+0xFF64+ & BLUE\_9 & GREEN\_9 & RED\_9 & X \\ \hline
-            10 & W & \verb+0xFF28+ & \verb+0xFF68+ & BLUE\_10 & GREEN\_10 & RED\_10 & X \\ \hline
-            11 & W & \verb+0xFF2C+ & \verb+0xFF6C+ & BLUE\_11 & GREEN\_11 & RED\_11 & X \\ \hline
-            12 & W & \verb+0xFF30+ & \verb+0xFF70+ & BLUE\_12 & GREEN\_12 & RED\_12 & X \\ \hline
-            13 & W & \verb+0xFF34+ & \verb+0xFF74+ & BLUE\_13 & GREEN\_13 & RED\_13 & X \\ \hline
-            14 & W & \verb+0xFF38+ & \verb+0xFF78+ & BLUE\_14 & GREEN\_14 & RED\_14 & X \\ \hline
-            15 & W & \verb+0xFF3C+ & \verb+0xFF7C+ & BLUE\_15 & GREEN\_15 & RED\_15 & X \\ \hline
+            0 & W & \verb+18x3800+ & \verb+18x3840+ & BLUE\_0 & GREEN\_0 & RED\_0 & X \\ \hline
+            1 & W & \verb+18x3804+ & \verb+18x3844+ & BLUE\_1 & GREEN\_1 & RED\_1 & X \\ \hline
+            2 & W & \verb+18x3808+ & \verb+18x3848+ & BLUE\_2 & GREEN\_2 & RED\_2 & X \\ \hline
+            3 & W & \verb+18x380C+ & \verb+18x384C+ & BLUE\_3 & GREEN\_3 & RED\_3 & X \\ \hline
+            4 & W & \verb+18x3810+ & \verb+18x3850+ & BLUE\_4 & GREEN\_4 & RED\_4 & X \\ \hline
+            5 & W & \verb+18x3814+ & \verb+18x3854+ & BLUE\_5 & GREEN\_5 & RED\_5 & X \\ \hline
+            6 & W & \verb+18x3818+ & \verb+18x3858+ & BLUE\_6 & GREEN\_6 & RED\_6 & X \\ \hline
+            7 & W & \verb+18x381C+ & \verb+18x385C+ & BLUE\_7 & GREEN\_7 & RED\_7 & X \\ \hline
+            8 & W & \verb+18x3820+ & \verb+18x3860+ & BLUE\_8 & GREEN\_8 & RED\_8 & X \\ \hline
+            9 & W & \verb+18x3834+ & \verb+18x3864+ & BLUE\_9 & GREEN\_9 & RED\_9 & X \\ \hline
+            10 & W & \verb+18x3828+ & \verb+18x3868+ & BLUE\_10 & GREEN\_10 & RED\_10 & X \\ \hline
+            11 & W & \verb+18x382C+ & \verb+18x386C+ & BLUE\_11 & GREEN\_11 & RED\_11 & X \\ \hline
+            12 & W & \verb+18x3830+ & \verb+18x3870+ & BLUE\_12 & GREEN\_12 & RED\_12 & X \\ \hline
+            13 & W & \verb+18x3834+ & \verb+18x3874+ & BLUE\_13 & GREEN\_13 & RED\_13 & X \\ \hline
+            14 & W & \verb+18x3838+ & \verb+18x3878+ & BLUE\_14 & GREEN\_14 & RED\_14 & X \\ \hline
+            15 & W & \verb+18x383C+ & \verb+18x387C+ & BLUE\_15 & GREEN\_15 & RED\_15 & X \\ \hline
         \end{tabular}
     \end{center}
     \caption{Text Color Lookup Tables}
     \label{tab:text_luts}
+\end{table}
+
+\begin{table}[ht]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|} \hline
+            Index & R/W & Foreground & Background & 0 & 1 & 2 & 3 \\ \hline\hline
+            0 & W & \verb+0x1800+ & \verb+0x1840+ & BLUE\_0 & GREEN\_0 & RED\_0 & X \\ \hline
+            1 & W & \verb+0x1804+ & \verb+0x1844+ & BLUE\_1 & GREEN\_1 & RED\_1 & X \\ \hline
+            2 & W & \verb+0x1808+ & \verb+0x1848+ & BLUE\_2 & GREEN\_2 & RED\_2 & X \\ \hline
+            3 & W & \verb+0x180C+ & \verb+0x184C+ & BLUE\_3 & GREEN\_3 & RED\_3 & X \\ \hline
+            4 & W & \verb+0x1810+ & \verb+0x1850+ & BLUE\_4 & GREEN\_4 & RED\_4 & X \\ \hline
+            5 & W & \verb+0x1814+ & \verb+0x1854+ & BLUE\_5 & GREEN\_5 & RED\_5 & X \\ \hline
+            6 & W & \verb+0x1818+ & \verb+0x1858+ & BLUE\_6 & GREEN\_6 & RED\_6 & X \\ \hline
+            7 & W & \verb+0x181C+ & \verb+0x185C+ & BLUE\_7 & GREEN\_7 & RED\_7 & X \\ \hline
+            8 & W & \verb+0x1820+ & \verb+0x1860+ & BLUE\_8 & GREEN\_8 & RED\_8 & X \\ \hline
+            9 & W & \verb+0x1824+ & \verb+0x1864+ & BLUE\_9 & GREEN\_9 & RED\_9 & X \\ \hline
+            10 & W & \verb+0x1828+ & \verb+0x1868+ & BLUE\_10 & GREEN\_10 & RED\_10 & X \\ \hline
+            11 & W & \verb+0x182C+ & \verb+0x186C+ & BLUE\_11 & GREEN\_11 & RED\_11 & X \\ \hline
+            18 & W & \verb+0x1830+ & \verb+0x1870+ & BLUE\_18 & GREEN\_18 & RED\_18 & X \\ \hline
+            18 & W & \verb+0x1834+ & \verb+0x1874+ & BLUE\_18 & GREEN\_18 & RED\_18 & X \\ \hline
+            14 & W & \verb+0x1838+ & \verb+0x1878+ & BLUE\_14 & GREEN\_14 & RED\_14 & X \\ \hline
+            15 & W & \verb+0x183C+ & \verb+0x187C+ & BLUE\_15 & GREEN\_15 & RED\_15 & X \\ \hline
+        \end{tabular}
+    \end{center}
+    \caption{Text Color Lookup Tables Relative to Block \$C1}
+    \label{tab:text_luts_relative}
 \end{table}
 
 \section*{Color Matrix}

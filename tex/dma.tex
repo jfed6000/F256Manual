@@ -12,17 +12,17 @@ Rectangular data (or ``2D'') is a bit more complicated and is meant to be workin
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xDF00+ & R/W & START & \multicolumn{3}{|c|}{---} & INT\_EN & FILL & 2D & ENABLE \\ \hline
-            \verb+0xDF01+ & W & FD7 & FD6 & FD5 & FD4 & FD3 & FD2 & FD1 & FD0 \\ \hline
-            \verb+0xDF01+ & R & BUSY & \multicolumn{7}{|c|}{---}  \\ \hline\hline
+            \verb+0xFEC0+ & R/W & START & \multicolumn{3}{|c|}{---} & INT\_EN & FILL & 2D & ENABLE \\ \hline
+            \verb+0xFEC1+ & W & FD7 & FD6 & FD5 & FD4 & FD3 & FD2 & FD1 & FD0 \\ \hline
+            \verb+0xFEC1+ & R & BUSY & \multicolumn{7}{|c|}{---}  \\ \hline\hline
 
-            \verb+0xDF04+ & R/W & SA7 & SA6 & SA5 & SA4 & SA3 & SA2 & SA1 & SA0 \\ \hline
-            \verb+0xDF05+ & R/W & SA15 & SA14 & SA13 & SA12 & SA11 & SA10 & SA9 & SA8 \\ \hline
-            \verb+0xDF06+ & R/W & \multicolumn{5}{|c|}{---} & SA18 & SA17 & SA16 \\ \hline\hline
+            \verb+0xFEC4+ & R/W & \multicolumn{5}{|c|}{---} & SA18 & SA17 & SA16 \\ \hline\hline
+            \verb+0xFEC5+ & R/W & SA15 & SA14 & SA13 & SA12 & SA11 & SA10 & SA9 & SA8 \\ \hline
+            \verb+0xFEC6+ & R/W & SA7 & SA6 & SA5 & SA4 & SA3 & SA2 & SA1 & SA0 \\ \hline
 
-            \verb+0xDF08+ & R/W & DA7 & DA6 & DA5 & DA4 & DA3 & DA2 & DA1 & DA0 \\ \hline
-            \verb+0xDF09+ & R/W & DA15 & DA14 & DA13 & DA12 & DA11 & DA10 & DA9 & DA8 \\ \hline
-            \verb+0xDF0A+ & R/W & \multicolumn{5}{|c|}{---} & DA18 & DA17 & DA16 \\ \hline
+            \verb+0xFEC8+ & R/W & \multicolumn{5}{|c|}{---} & DA18 & DA17 & DA16 \\ \hline
+            \verb+0xFEC9+ & R/W & DA15 & DA14 & DA13 & DA12 & DA11 & DA10 & DA9 & DA8 \\ \hline
+            \verb+0xFECA+ & R/W & DA7 & DA6 & DA5 & DA4 & DA3 & DA2 & DA1 & DA0 \\ \hline
         \end{tabular}
     \end{center}
     \caption{DMA Registers (Part 1)}
@@ -33,20 +33,20 @@ Rectangular data (or ``2D'') is a bit more complicated and is meant to be workin
     \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
             Address & R/W & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\\hline\hline
-            \verb+0xDF0C+ & R/W & CNT7 & CNT6 & CNT5 & CNT4 & CNT3 & CNT2 & CNT1 & CNT0 \\ \hline
-            \verb+0xDF0D+ & R/W & CNT15 & CNT14 & CNT13 & CNT12 & CNT11 & CNT10 & CNT9 & CNT8 \\ \hline
-            \verb+0xDF0E+ & R/W & \multicolumn{5}{|c|}{---} & CNT18 & CNT17 & CNT16 \\ \hline\hline
+            \verb+0xFECF+ & R/W & \multicolumn{5}{|c|}{---} & DZ18 & DZ17 & DZ16 \\ \hline\hline
+            \verb+0xFECE+ & R/W & DZ15 & DZ14 & DZ13 & DZ12 & DZ11 & DZ10 & DZ9 & DZ8 \\ \hline
+            \verb+0xFECD+ & R/W & DZ7 & DZ6 & DZ5 & DZ4 & DZ3 & DZ2 & DZ1 & DZ0 \\ \hline
 
-            \verb+0xDF0C+ & R/W & W7 & W6 & W5 & W4 & W3 & W2 & W1 & W0 \\ \hline
-            \verb+0xDF0D+ & R/W & W15 & W14 & W13 & W12 & W11 & W10 & W9 & W8 \\ \hline
-            \verb+0xDF0E+ & R/W & H7 & H6 & H5 & H4 & H3 & H2 & H1 & H0 \\ \hline
-            \verb+0xDF0F+ & R/W & H15 & H14 & H13 & H12 & H11 & H10 & H9 & H8 \\ \hline\hline
+            \verb+0xFED0+ & R/W & W15 & W14 & W13 & W12 & W11 & W10 & W9 & W8 \\ \hline
+            \verb+0xFED1+ & R/W & W7 & W6 & W5 & W4 & W3 & W2 & W1 & W0 \\ \hline
+            \verb+0xFED2+ & R/W & H15 & H14 & H13 & H12 & H11 & H10 & H9 & H8 \\ \hline\hline
+            \verb+0xFED3+ & R/W & H7 & H6 & H5 & H4 & H3 & H2 & H1 & H0 \\ \hline
 
-            \verb+0xDF10+ & R/W & SS7 & SS6 & SS5 & SS4 & SS3 & SS2 & SS1 & SS0 \\ \hline
-            \verb+0xDF11+ & R/W & SS15 & SS14 & SS13 & SS12 & SS11 & SS10 & SS9 & SS8 \\ \hline
+            \verb+0xFED4+ & R/W & SS15 & SS14 & SS13 & SS12 & SS11 & SS10 & SS9 & SS8 \\ \hline
+            \verb+0xFED5+ & R/W & SS7 & SS6 & SS5 & SS4 & SS3 & SS2 & SS1 & SS0 \\ \hline
 
-            \verb+0xDF12+ & R/W & SD7 & SD6 & SD5 & SD4 & SD3 & SD2 & SD1 & SD0 \\ \hline
-            \verb+0xDF13+ & R/W & SD15 & SD14 & SD13 & SD12 & SD11 & SD10 & SD9 & SD8 \\ \hline
+            \verb+0xFED6+ & R/W & SD15 & SD14 & SD13 & SD12 & SD11 & SD10 & SD9 & SD8 \\ \hline
+            \verb+0xFED7+ & R/W & SD7 & SD6 & SD5 & SD4 & SD3 & SD2 & SD1 & SD0 \\ \hline
         \end{tabular}
     \end{center}
     \caption{DMA Registers (Part 2)}
@@ -73,7 +73,7 @@ Rectangular data (or ``2D'') is a bit more complicated and is meant to be workin
 
     \item[DA] the 19 bit destination address (must be a location in the first 512KB of RAM)
 
-    \item[CNT] the number of bytes to copy (only available when 2D is clear)
+    \item[DZ] the number of bytes to copy for 1D operations
 
     \item[W] the width of the rectangle of data to copy (only available when 2D is set)
 
